@@ -601,5 +601,18 @@
                     WidgetHome.loadMore();
                     $scope.$digest();
                 });
+                WidgetHome.bookmark = function (event, item) {
+                    event.stopImmediatePropagation();
+                    var isBookmarked = item.bookmarked ? true : false;            
+                    if (isBookmarked) {
+                      bookmarks.delete($scope, item);
+                    } else {
+                      bookmarks.add($scope, item);
+                    }
+                }
+                $scope.$watch('WidgetHome.items', () => {
+                    console.log(WidgetHome.items)
+                    bookmarks.sync($scope, WidgetHome.items)
+                }, true);
             }]);
 })(window.angular, window);

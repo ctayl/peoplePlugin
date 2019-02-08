@@ -25,6 +25,7 @@
 			  </p>
               <p class="margin-bottom-zero ellipsis body-content-word-break text-overlay person-position" ng-if="item.data.position">{{item.data.position}}</p>
               <p class="margin-bottom-zero ellipsis body-content-word-break text-overlay" ng-if="!item.data.bodyContent"></p>
+              <i class="glyphicon" ng-class="{ 'glyphicon-star-empty' : !item.bookmarked, 'glyphicon-star' : item.bookmarked }" ng-click="WidgetHome.bookmark($event, item)" role="button"></i>
             </div>
           </div>
         </div>
