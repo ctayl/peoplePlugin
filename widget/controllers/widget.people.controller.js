@@ -120,6 +120,9 @@
                             }
 
                             WidgetPeople.item = result.data;
+                            WidgetPeople.item.id = itemId;
+
+                            bookmarks.sync($scope, 'WidgetPeople')
                             $scope.$digest();
                         }
                         bindOnUpdate();
@@ -207,6 +210,21 @@
                         buildfire.actionItems.list(actionItems, options, callback);
                     }
                 };
+
+                WidgetPeople.bookmark = function (event) {
+                    event.stopImmediatePropagation();
+                    var isBookmarked = WidgetPeople.item.bookmarked ? true : false;            
+                    if (isBookmarked) {
+                      bookmarks.delete($scope, WidgetPeople.item, 'WidgetPeople');
+                    } else {
+                      bookmarks.add($scope, WidgetPeople.item,  'WidgetPeople');
+                    }
+                }
+
+                $scope.$watch('WidgetPeople.item', () => {
+                    console.log(WidgetPeople.item)
+
+                }, true);
 
                 Buildfire[window.DB_PROVIDER].onRefresh(function(){
 

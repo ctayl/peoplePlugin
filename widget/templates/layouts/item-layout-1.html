@@ -14,6 +14,7 @@
 		<div class="people-info text-left padded padding-bottom-zero padding-top-ten clearfix ">
 			<div class="col-xs-9 padding-zero pull-left">
 				<p class="margin-zero text-overlay" style="font-size: 16px">{{WidgetPeople.item.fName}} {{WidgetPeople.item.lName}}</p>
+				<i class="glyphicon" ng-class="{ 'glyphicon-star-empty' : !WidgetPeople.item.bookmarked, 'glyphicon-star' : WidgetPeople.item.bookmarked }" ng-click="WidgetPeople.bookmark($event)" role="button"></i>
 				<p class="margin-bottom-zero">{{WidgetPeople.item.position}}</p>
 				<p class="margin-bottom-zero" ng-show="WidgetPeople.item.email && !WidgetPeople.hideEmail"><a href="mailto:{{WidgetPeople.item.email}}">{{WidgetPeople.item.email}}</a></p>
 			</div>

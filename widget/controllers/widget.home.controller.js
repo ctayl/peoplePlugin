@@ -557,7 +557,7 @@
                         WidgetHome.loadMore();
                         $scope.$digest();
                     });
-
+                    bookmarks.sync($scope, 'WidgetHome')
                     Buildfire.datastore.onUpdate(onUpdateCallback);
                     Buildfire.publicData.onUpdate(onUpdateCallback);
                 });
@@ -603,16 +603,17 @@
                 });
                 WidgetHome.bookmark = function (event, item) {
                     event.stopImmediatePropagation();
-                    var isBookmarked = item.bookmarked ? true : false;            
+                    var isBookmarked = item.bookmarked ? true : false;
+                    item.data.id = item.id;           
                     if (isBookmarked) {
-                      bookmarks.delete($scope, item);
+                      bookmarks.delete($scope, item.data, 'WidgetHome');
                     } else {
-                      bookmarks.add($scope, item);
+                      bookmarks.add($scope, item.data, 'WidgetHome');
                     }
-                }
+                };
                 $scope.$watch('WidgetHome.items', () => {
                     console.log(WidgetHome.items)
-                    bookmarks.sync($scope, WidgetHome.items)
+                    bookmarks.sync($scope, 'WidgetHome')
                 }, true);
             }]);
 })(window.angular, window);
