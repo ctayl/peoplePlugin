@@ -206,7 +206,7 @@
               var isRankChanged = false;
               if (next) {
                 if (prev) {
-                  if(prev.data.rank && next.data.rank && prev.data.rank == next.data.rank) {
+                  if((prev.data.rank || prev.data.rank === 0) && (next.data.rank || prev.data.rank === 0) && (prev.data.rank == next.data.rank)) {
                     console.error('matching ranks found. resetting manual sort');
                     resetManualSorting(ContentHome.items)
                   }
