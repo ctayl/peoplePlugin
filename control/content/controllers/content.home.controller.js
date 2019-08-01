@@ -13,7 +13,8 @@
           fName: "First Name",
           lName: "Last Name",
           position: "Position",
-          bodyContent: "Information"
+          bodyContent: "Information",
+          socialLinks: "Social Links"
         };
 
           /**
@@ -438,7 +439,7 @@
               for (var index = 0; index < rows.length; index++) {
                 rank += 10;
                 rows[index].dateCreated = +new Date();
-                rows[index].socialLinks = [];
+                // rows[index].socialLinks = [];
                 rows[index].rank = rank;
               }
               if (validateCsv(rows)) {
@@ -501,13 +502,17 @@
                 angular.forEach(angular.copy(data), function (value) {
                   delete value.data.dateCreated;
                   delete value.data.iconImage;
-                  delete value.data.socialLinks;
+                  // delete value.data.socialLinks;
+                  debugger
+                  value.data.socialLinks = JSON.stringify(value.data.socialLinks);
                   delete value.data.rank;
                   persons.push(value.data);
                 });
                 var csv = FormatConverter.jsonToCsv(angular.toJson(persons), {
                   header: header
                 });
+                debugger
+                console.error(csv);
                 FormatConverter.download(csv, "Export.csv");
               }
               else {

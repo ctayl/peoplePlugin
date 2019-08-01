@@ -5,10 +5,10 @@
         .module('peoplePluginContent')
         .controller('ImportCSVPopupCtrl', ['$scope', '$modalInstance', '$csv', function ($scope, $modalInstance, FormatConverter) {
             var ImportCSVPopup = this;
-            var header = ["topImage", "fName", "lName", "position", "bodyContent"];
+            var header = ["topImage", "fName", "lName", "position", "bodyContent", "socialLinks"];
             ImportCSVPopup.ok = function () {
                 if (ImportCSVPopup.fileData) {
-                    var json = JSON.parse(FormatConverter.csvToJson(ImportCSVPopup.fileData, {header: header}));
+                    var json = JSON.parse(FormatConverter.csvToJson(ImportCSVPopup.fileData, { header: header }));
                     var index, value;
                     for (var index = 0; index < json.length; index++) {
                         value = json[index];

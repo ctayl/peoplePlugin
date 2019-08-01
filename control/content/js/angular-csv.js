@@ -77,7 +77,15 @@
                             var item = {};
                             for (var col = 0; col < header.length && col < rows[row].length; col++) {
                                 var key = header[col];
-                                item[key] = rows[row][col]
+                                if (key === 'socialLinks') {
+                                    try {
+                                        item[key] = JSON.parse(rows[row][col])
+                                    } catch (e) {
+                                        console.error(e)
+                                    }
+                                } else {
+                                    item[key] = rows[row][col]
+                                }
                             }
                             items.push(item);
                         }
