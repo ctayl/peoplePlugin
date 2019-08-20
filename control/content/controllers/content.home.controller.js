@@ -12,9 +12,10 @@
           topImage: "Image URL",
           fName: "First Name",
           lName: "Last Name",
+          email: "email",
           position: "Position",
           bodyContent: "Information",
-          socialLinks: "Social Links"
+          phoneNumber: "Phone Number"
         };
 
           /**
@@ -439,7 +440,16 @@
               for (var index = 0; index < rows.length; index++) {
                 rank += 10;
                 rows[index].dateCreated = +new Date();
-                // rows[index].socialLinks = [];
+                rows[index].socialLinks = [];
+
+                if (rows[index].phoneNumber) {
+                  rows[index].socialLinks.push({
+                    action: "callNumber",
+                    title: rows[index].phoneNumber,
+                    phoneNumber: rows[index].phoneNumber
+                  });
+                  delete rows[index].phoneNumber;
+                }
                 rows[index].rank = rank;
               }
               if (validateCsv(rows)) {
@@ -500,19 +510,23 @@
               if (data && data.length) {
                 var persons = [];
                 angular.forEach(angular.copy(data), function (value) {
+                  value.data.socialLinks.forEach(link => {
+                    if (link.action === 'callNumber') {
+                      value.data.phoneNumber = link.phoneNumber;
+                    }
+                  })
+
+
                   delete value.data.dateCreated;
                   delete value.data.iconImage;
-                  // delete value.data.socialLinks;
-                  debugger
-                  value.data.socialLinks = JSON.stringify(value.data.socialLinks);
+                  delete value.data.socialLinks;
                   delete value.data.rank;
+
                   persons.push(value.data);
                 });
                 var csv = FormatConverter.jsonToCsv(angular.toJson(persons), {
                   header: header
                 });
-                debugger
-                console.error(csv);
                 FormatConverter.download(csv, "Export.csv");
               }
               else {
@@ -561,8 +575,11 @@
             topImage: "",
             fName: "",
             lName: "",
+            email: "",
             position: "",
-            bodyContent: ""
+            bodyContent: "",
+            phoneNumber: "",
+
           }];
           var csv = FormatConverter.jsonToCsv(angular.toJson(templateData), {
             header: header

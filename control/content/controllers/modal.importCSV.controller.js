@@ -5,7 +5,7 @@
         .module('peoplePluginContent')
         .controller('ImportCSVPopupCtrl', ['$scope', '$modalInstance', '$csv', function ($scope, $modalInstance, FormatConverter) {
             var ImportCSVPopup = this;
-            var header = ["topImage", "fName", "lName", "position", "bodyContent", "socialLinks"];
+            var header = ["topImage", "fName", "lName", "email", "position", "bodyContent", "phoneNumber"];
             ImportCSVPopup.ok = function () {
                 if (ImportCSVPopup.fileData) {
                     var json = JSON.parse(FormatConverter.csvToJson(ImportCSVPopup.fileData, { header: header }));
